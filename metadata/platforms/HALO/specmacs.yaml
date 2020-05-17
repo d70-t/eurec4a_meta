@@ -1,0 +1,35 @@
+people:
+  tobi:
+    name: Tobias Kölling
+    email: tobias.koelling@physik.uni-muenchen.de
+
+institutions:
+  lmu:
+    name: Ludwigs Maximilians Universität
+    city: München
+    country: Germany
+
+  lmu_mim:
+    name: Meteorologisches Institut der LMU
+    part of: lmu
+
+instruments:
+  specMACS:
+    name: specMACS
+    long_name: specMACS hyperspectral imager
+    kind: [hyperspectral imager, imager]
+    description: specMACS is the hyperspectral imager of the LMU in Munich. It measures from 400nm to 2500nm at a FOV of approximately 32°. 
+    uris:
+      - https://www.meteorologie.lmu.de/DokuWiki/doku.php?id=arbeitsgruppen:wolkenspektrometer
+      - doi:10.5194/amt-9-2015-2016
+    contacts:
+      tobi: [sc, du, tl, as, dp]
+      lmu_mim: [home]
+    configurations:
+      EUREC4A:
+        part of: HALO_EUREC4A
+        variables:
+          spectral_radiance:
+            name: spectral radiance
+          polarized_radiance:
+            name: polarized radiance

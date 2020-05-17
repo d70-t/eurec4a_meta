@@ -1,0 +1,20 @@
+# this file lists tags and their meaning which can be used in other files
+
+peoples_roles: # tag naming the function of a person
+  as: atmospheric science
+  bo: ocean biology
+  cm: crew member
+  cs: chief scientist
+  dp: data provider
+  du: should be informed if data is used
+  fm: facility manager
+  lc: lead contact
+  pi: principal investigator
+  po: physical oceanography
+  sc: scientist
+  so: scientific observer
+  tl: technical lead
+  ts: technical support
+
+institutional_roles:
+  home: home of the device / platform

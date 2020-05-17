@@ -1,0 +1,13 @@
+people:
+  bjorn:
+    name: Bjorn Stevens
+    email: bjorn.stevens@mpimet.mpg.de
+  felix:
+    name: Felix Ament
+    email: felix.ament@uni-hamburg.de
+  friedhelm:
+    name: Friedhelm Jansen
+    email: friedhelm.jansen@mpimet.mpg.de
+  marvin:
+    name: Marvin Forde
+    email: mforde@cimh.edu.bb

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>instruments</title>
+<style>
+
+body {
+  font-family: sans-serif;
+}
+
+.instrument {
+  margin: 5px;
+  padding: 5px;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+}
+
+h2, h3 {
+  margin: 5px;
+}
+
+.contact {
+  padding: 2px;
+}
+
+.name {
+  display: inline-block;
+}
+
+.tags {
+  display: inline-block;
+}
+
+ /* Tooltip container */
+.tag {
+  position: relative;
+  display: inline-block;
+  border-radius: 6px;
+  background-color: #ccf;
+  padding: 2px 6px;
+}
+
+/* Tooltip text */
+.tag .tagname{
+  visibility: hidden;
+  width: 240px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -120px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tag .tagname::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tag:hover .tagname{
+  visibility: visible;
+  opacity: 1;
+} 
+</style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>instruments</h1>
+      {% for instrument in instruments%}
+      <div class="instrument">
+        <h2>{{ instrument.long_name or instrument.name }}</h2>
+        <div class="description">
+          {{ instrument.description }}
+        </div>
+        <h3>contacts</h3>
+        <div class="contacts">
+          {% for contact, tags in instrument.contacts.items() %}
+            <div class="contact">
+              <div class="name">
+                {% if objects[contact].email %}
+                  <a href="mailto:{{ objects[contact].email }}">{{ objects[contact].name }}</a>
+                {% else %}
+                  {{ objects[contact].name }}
+                {% endif %}
+              </div>
+              <div class="tags">
+                {% for tag in tags %}
+                <div class="tag">
+                  {{ tag }}
+                  <div class="tagname">
+                    {{ objects[tag].name }}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <h3>further information</h3>
+        <ul>
+          {% for uri in instrument.uris %}
+            {% if uri.startswith("doi:") %}
+              <li><a href="{{ uri.replace("doi:", "https://doi.org/") }}">{{ uri }}</a></li>
+            {% else %}
+              <li><a href="{{ uri }}">{{ uri }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
