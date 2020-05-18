@@ -1,19 +1,18 @@
 # EUREC4A Metadata Structure
 The EUREC4A metadata occurs in several different formats and formatting levels, depending on the use case.
-The metadata is built from a defined set of metadata objects, each of which has a unique id across all metadata objects, such that objects can refer to each other.
+The metadata is built from a set of metadata objects. Each object is an instance of a particular kind of metdata object, such as a `person`, or a `platform`, and each specific object (e.g., Tobi or HALO) is identified uniquely (by an id) that is then used across all metadata objects.  This allows objects to refer to each other.
 
 ## formatting levels
 
-There are input formats, which are intended as the only source of truth of the metadata.
-In the input formats, no information should be duplicated, such that inconsistencies can be avoided.
-The input formats should also be human readable, as the maintenance of the metadata will be carried out by humans and the use of git and text file diffs is envisioned as the primary way of updating metadata.
+Input formats are intended as the only source of truth of the metadata. In the input formats, no information should be duplicated, such that inconsistencies can be avoided. The input formats should also be human readable, as the maintenance of the metadata will be carried out by humans and the use of git and text file diffs is envisioned as the primary way of updating metadata.
 
-The next level, is the intermediate format, which is intended to be machine readable only and should become the most regular format.
-Ideally, this will become available as one large, automatically updated file which contains all available metadata information.
+An intermediate format will be constructed from thie input formats.
+This is intended to be machine readable and should become the most regular format.
+Ideally, this will become available as one large, automatically updated file which contains all available metadata information.  
 This should also be the primary format read by users who want to access the metadata programmatically.
 
 The third level are reports, which can be generated automatically from the intermediate level.
-The reports are again human readable but may be properly formatted and styled (e.g. using HTML), such that the information becomes easy to read by humans who want to inform themselves about the field campaign activities, without any need for programming knowledge.
+The reports are derived from the intermediate format, and presented or styled (e.g. using HTML) such that the information becomes easy to read by humans who want to inform themselves about the field campaign activities, without any need for programming knowledge.
 
 ## objects
 The currently specified metadata objects are:
@@ -27,7 +26,6 @@ The currently specified metadata objects are:
 * instrument
 * instrument_configuration
 * variable
-* instrument
 
 ## input formats
 EUREC4A metadata can be provided in several formats, which are still in development.
@@ -51,7 +49,7 @@ Valid keys are:
 * `instrument_configurations` for object type `instrument_configuration`
 * `variables` for object type `variable`
 
-The second level of the YAML files must be a `map` which relates object ids to objects of the aforementioned type.
+The second level of the YAML files must be a `map` which relates object ids to objects (i.e., the collection of metadata assoicated with that ojbect) of the aforementioned type.
 Please have a look at the [metadata](metadata) folder for examples.
 
 ### intermediate format
