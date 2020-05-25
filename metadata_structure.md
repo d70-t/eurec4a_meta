@@ -6,7 +6,7 @@ The metadata is built from a set of metadata objects. Each object is an instance
 
 Input formats are intended as the only source of truth of the metadata. In the input formats, no information should be duplicated, such that inconsistencies can be avoided. The input formats should also be human readable, as the maintenance of the metadata will be carried out by humans and the use of git and text file diffs is envisioned as the primary way of updating metadata.
 
-An intermediate format will be constructed from thie input formats.
+An intermediate format will be constructed from the input formats.
 This is intended to be machine readable and should become the most regular format.
 Ideally, this will become available as one large, automatically updated file which contains all available metadata information.  
 This should also be the primary format read by users who want to access the metadata programmatically.
@@ -49,7 +49,7 @@ Valid keys are:
 * `instrument_configurations` for object type `instrument_configuration`
 * `variables` for object type `variable`
 
-The second level of the YAML files must be a `map` which relates object ids to objects (i.e., the collection of metadata assoicated with that ojbect) of the aforementioned type.
+The second level of the YAML files must be a `map` which relates object ids to objects (i.e., the collection of metadata assoicated with that object) of the aforementioned type.
 Please have a look at the [metadata](metadata) folder for examples.
 
 ### intermediate format
