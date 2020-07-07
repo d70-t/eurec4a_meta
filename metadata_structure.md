@@ -27,6 +27,83 @@ The currently specified metadata objects are:
 * instrument_configuration
 * variable
 
+### individual objects
+
+#### person
+| key   | type | required | description   |
+| ---   | ---  | ---      | ---           |
+| name  | str  | ✓        | full name     |
+| email | str  |          | email address |
+
+#### peoples_role
+| key  | type | required | description      |
+| ---  | ---  | ---      | ---              |
+| name | str  | ✓        | name of the role |
+
+Note that is is ok to define the object in YAML by only writing the name as a string, without defining a `map`.
+
+#### institution
+| key     | type      | required | description |
+| ---     | ---       | ---      | ---         |
+| name    | str       | ✓        | name        |
+| city    | str       |          | city        |
+| country | str       |          | country     |
+| part_of | object id |          | reference to another institution, use if this institution is a part of a larger institution|
+
+#### institutional_role
+| key  | type | required | description      |
+| ---  | ---  | ---      | ---              |
+| name | str  | ✓        | name of the role |
+
+Note that is is ok to define the object in YAML by only writing the name as a string, without defining a `map`.
+
+#### platform
+| key      | type         | required | description                                           |
+| ---      | ---          | ---      | ---                                                   |
+| name     | str          | ✓        | platform (long) name                                  |
+| aliases  | [str]        |          | other common names of the same platform               |
+| kinds    | [str]        | ✓        | classification of the platform                        |
+| contacts | {id: [role]} |          | people or institutions relevant for the platform      |
+| uris     | [str]        |          | list of uris refering to additional information       |
+| color    | hex color    |          | preferred color to use when referring to the platform |
+
+##### Notes
+* each platform can belong to multiple `kinds`. Kinds should be listed in decreasing order of specificity.
+* `contacts` may reference either a `person` or an `institution`. The list of roles must refer to the corresponding set of roles. The roles describe in which function the person or institution is related to the platform.
+* `uris` may currently by http(s) urls or dois
+* `color` must be given as RGB hex code, i.e. `#RRGGBB`.
+
+#### platform_configuration
+| key              | type                 | required | description |
+| ---              | ---                  | ---      | ---         |
+| configuration of | platform id          | ✓        |             |
+| name             | str                  |          |             |
+| timeframe        | {from: ..., to: ...} |          |             |
+
+#### instrument
+| key         | type         | required | description                                           |
+| ---         | ---          | ---      | ---                                                   |
+| name        | str          | ✓        |                                                       |
+| kinds       | [str]        | ✓        |                                                       |
+| description | str          |          | free text describing the instrument                   |
+| contacts    | {id: [role]} |          | people or institutions relevant for the platform      |
+| uris        | [str]        |          | list of uris refering to additional information       |
+| color       | hex color    |          | preferred color to use when referring to the platform |
+
+#### instrument_configuration
+| key              | type                      | required | description |
+| ---              | ---                       | ---      | ---         |
+| configuration of | instrument id             | ✓        |             |
+| part of          | platform_configuration id |          |             |
+| name             | str                       |          |             |
+
+#### variable
+| key         | type                        | required | description |
+| ---         | ---                         | ---      | ---         |
+| name        | str                         | ✓        |             |
+| measured by | instrument_configuration id | ✓        |             |
+
+
 ## input formats
 EUREC4A metadata can be provided in several formats, which are still in development.
 The only currently implemented input format is a collection of [YAML](https://yaml.org) files, which are stored in the [metadata](metadata) folder of this repository.
@@ -51,6 +128,15 @@ Valid keys are:
 
 The second level of the YAML files must be a `map` which relates object ids to objects (i.e., the collection of metadata assoicated with that object) of the aforementioned type.
 Please have a look at the [metadata](metadata) folder for examples.
+
+#### inline objects
+
+Some objects which belong to other objects may be defined within other objects in order to reduce the complexity of writing the YAML files.
+This is possible for:
+
+* `platform_configuration` within `platform`
+* `instrument_configuration` within `instrument`
+* `variable` within `instrument_configuration`
 
 ### intermediate format
 A proof of concept intermediate format listing can be generated with:
