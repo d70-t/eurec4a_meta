@@ -1,6 +1,7 @@
 import os
 import yaml
 from yaml.loader import SafeLoader, BaseLoader
+from .uri import parse_uri
 
 class Annotated:
     def __init__(self, child, start, end):
@@ -39,8 +40,11 @@ def simple_loader(object_type):
         data = data.collapse()
         data["id"] = id.collapse()
         data["type"] = object_type
+        if "uris" in data:
+            data["uris"] = [parse_uri(uri) for uri in data["uris"]]
         return data
     return loader
+
 
 def role_loader(object_type):
     def loader(id, data):

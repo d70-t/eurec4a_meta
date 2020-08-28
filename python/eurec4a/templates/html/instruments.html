@@ -118,11 +118,7 @@ h2, h3 {
         <h3>further information</h3>
         <ul>
           {% for uri in instrument.uris %}
-            {% if uri.startswith("doi:") %}
-              <li><a href="{{ uri.replace("doi:", "https://doi.org/") }}">{{ uri }}</a></li>
-            {% else %}
-              <li><a href="{{ uri }}">{{ uri }}</a></li>
-            {% endif %}
+            <li><a href="{{ uri.url }}">{{ uri.title }}</a></li>
           {% endfor %}
         </ul>
       </div>
