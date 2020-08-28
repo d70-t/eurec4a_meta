@@ -95,16 +95,19 @@ class DuplicateObjectError(ParseError):
         return "object \"{}\" has been defined twice: at {} and {}".format(self.id, self.location1, self.location2)
 
 
+def get_loader(loader_type, location):
+    try:
+        return LOADERS[loader_type]
+    except KeyError as exc:
+        raise UnknownObjectError(loader_type, location) from exc
+
 
 def load_metadata_file(filename):
     with open(filename) as f:
         metadata = yaml.load(f, Loader=AnnotatingLoader)
     for loader_type, objects in metadata.child.items():
-        try:
-            loader = LOADERS[loader_type.collapse()]
-        except KeyError as exc:
-            location = FileLocation(filename, loader_type.start.line, loader_type.start.column)
-            raise UnknownObjectError(loader_type, location) from exc
+        location = FileLocation(filename, loader_type.start.line, loader_type.start.column)
+        loader = get_loader(loader_type.collapse(), location)
         for k, v in objects.child.items():
             location = FileLocation(filename, v.start.line, v.start.column)
             yield from loader(k, v, location)
