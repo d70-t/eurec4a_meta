@@ -46,20 +46,29 @@ class AnnotatingLoader(BaseLoader):
         value = super(AnnotatingLoader, self).construct_mapping(node)
         return AnnotatedMapping(value, node.start_mark, node.end_mark)
 
+FLATTEN_KEYS = {
+    "configurations": {
+        "ref_name": "configuration of",
+    },
+    "variables": {
+        "ref_name": "measured by",
+    },
+}
 
 def simple_loader(object_type):
     def loader(id, data, location):
-        if "configurations" in data:
-            configurations = data["configurations"]
-            sub_location = location.move_to(configurations.start.line,
-                                            configurations.start.column)
-            sub_loader = get_loader("{}_configurations".format(object_type), sub_location)
-            for name, configuration in configurations.child.items():
-                name = name.replace("{}_{}".format(id.collapse(), name.collapse()))
-                sub_location = location.move_to(configuration.start.line,
-                                                configuration.start.column)
-                configuration.child[name.replace("configuration of")] = id
-                yield from sub_loader(name, configuration, sub_location)
+        for k, opts in FLATTEN_KEYS.items():
+            if k in data:
+                subobjects = data[k]
+                sub_location = location.move_to(subobjects.start.line,
+                                                subobjects.start.column)
+                sub_loader = get_loader("{}_{}".format(object_type, k), sub_location)
+                for name, subobject in subobjects.child.items():
+                    name = name.replace("{}_{}".format(id.collapse(), name.collapse()))
+                    sub_location = location.move_to(subobject.start.line,
+                                                    subobject.start.column)
+                    subobject.child[name.replace(opts["ref_name"])] = id
+                    yield from sub_loader(name, subobject, sub_location)
 
         data = data.collapse()
         data["id"] = id.collapse()
@@ -67,8 +76,9 @@ def simple_loader(object_type):
         if "uris" in data:
             data["uris"] = [parse_uri(uri) for uri in data["uris"]]
 
-        if "configurations" in data:
-            del data["configurations"]
+        for k in FLATTEN_KEYS:
+            if k in data:
+                del data[k]
         yield data, location
     return loader
 
@@ -93,6 +103,7 @@ LOADERS = {
     "instruments": simple_loader("instrument"),
     "instrument_configurations": simple_loader("instrument_configuration"),
     "variables": simple_loader("variable"),
+    "instrument_configuration_variables": simple_loader("variable"),
 }
 
 class FileLocation:
