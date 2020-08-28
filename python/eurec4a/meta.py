@@ -36,24 +36,24 @@ class AnnotatingLoader(BaseLoader):
 
 
 def simple_loader(object_type):
-    def loader(id, data):
+    def loader(id, data, location):
         data = data.collapse()
         data["id"] = id.collapse()
         data["type"] = object_type
         if "uris" in data:
             data["uris"] = [parse_uri(uri) for uri in data["uris"]]
-        return data
+        return data, location
     return loader
 
 
 def role_loader(object_type):
-    def loader(id, data):
+    def loader(id, data, location):
         data = {
             "id": id.collapse(),
             "type": object_type,
             "name": data.collapse()
         }
-        return data
+        return data, location
     return loader
 
 LOADERS = {
@@ -107,7 +107,7 @@ def load_metadata_file(filename):
             raise UnknownObjectError(loader_type, location) from exc
         for k, v in objects.child.items():
             location = FileLocation(filename, v.start.line, v.start.column)
-            yield loader(k, v), location
+            yield loader(k, v, location)
 
 def _load_metadata_from_folder(folder):
     for root, dirs, files in os.walk(folder):
