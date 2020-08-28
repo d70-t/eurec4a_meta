@@ -42,7 +42,7 @@ def simple_loader(object_type):
         data["type"] = object_type
         if "uris" in data:
             data["uris"] = [parse_uri(uri) for uri in data["uris"]]
-        return data, location
+        yield data, location
     return loader
 
 
@@ -53,7 +53,7 @@ def role_loader(object_type):
             "type": object_type,
             "name": data.collapse()
         }
-        return data, location
+        yield data, location
     return loader
 
 LOADERS = {
@@ -107,7 +107,7 @@ def load_metadata_file(filename):
             raise UnknownObjectError(loader_type, location) from exc
         for k, v in objects.child.items():
             location = FileLocation(filename, v.start.line, v.start.column)
-            yield loader(k, v, location)
+            yield from loader(k, v, location)
 
 def _load_metadata_from_folder(folder):
     for root, dirs, files in os.walk(folder):
