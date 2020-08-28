@@ -3,15 +3,15 @@ import os
 from .meta import load_metadata_from_folder
 
 from jinja2 import Environment, PackageLoader, select_autoescape
-env = Environment(
-    loader=PackageLoader('eurec4a', 'templates'),
+html_env = Environment(
+    loader=PackageLoader('eurec4a', os.path.join('templates', 'html')),
     autoescape=select_autoescape(['html', 'xml'])
 )
 
 def render_instruments(metadata, output_folder):
     instruments = [e for e in metadata.values() if e["type"] == "instrument"]
     print(instruments)
-    tpl = env.get_template("instruments.html")
+    tpl = html_env.get_template("instruments.html")
     with open(os.path.join(output_folder, "instruments.html"), "w") as outfile:
         outfile.write(tpl.render(objects=metadata,
                                  instruments=instruments))
