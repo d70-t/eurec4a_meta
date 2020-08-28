@@ -6,6 +6,9 @@ class URI:
     def __init__(self, parsed_uri):
         self.o = parsed_uri
 
+    def __repr__(self):
+        return urlunparse(self.o)
+
 class HTTP(URI):
     __soup = None
 
