@@ -1,4 +1,5 @@
 import os
+from collections import defaultdict
 
 from .meta import load_metadata_from_folder
 
@@ -30,6 +31,28 @@ def render_instruments(metadata, output_folder):
         outfile.write(tpl.render(objects=metadata,
                                  instruments=instruments))
 
+def tabulate(metadata, output_folder):
+    keys_per_type = defaultdict(set)
+    for o in metadata.values():
+        keys_per_type[o["type"]] |= set(o)
+
+    display_keys = {t: ["id"] + list(sorted(k - {"id", "type"}))
+                    for t, k in keys_per_type.items()}
+
+    tabulated = {}
+    for t, ks in display_keys.items():
+        rows = [
+            [o.get(k, None) for k in ks]
+            for o in metadata.values()
+            if o["type"] == t
+        ]
+        tabulated[t] = {"column_names": ks, "rows": rows}
+
+    tpl = html_env.get_template("object_table.html")
+    with open(os.path.join(output_folder, "object_table.html"), "w") as outfile:
+        outfile.write(tpl.render(objects=metadata,
+                                 tabulated=tabulated))
+
 def render_tex_instruments(metadata, output_folder):
     instruments = [e for e in metadata.values() if e["type"] == "instrument"]
     print(instruments)
@@ -50,6 +73,7 @@ def _main():
 
     metadata = load_metadata_from_folder(args.metadata_folder)
 
+    tabulate(metadata, args.output_folder)
     render_instruments(metadata, args.output_folder)
     render_tex_instruments(metadata, args.output_folder)
     
