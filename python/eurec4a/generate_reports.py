@@ -25,12 +25,37 @@ tex_env = Environment(
 )
 
 def render_instruments(metadata, output_folder):
-    instruments = [e for e in metadata.values() if e["type"] == "instrument"]
+    instruments = [e.copy() for e in metadata.values() if e["type"] == "instrument"]
+    for instrument in instruments:
+        instrument["_related"] = {
+            "platforms": sorted(list({metadata[ic["part of"]]["configuration of"]
+                                      for ic in metadata.values()
+                                      if ic["type"] == "instrument_configuration"
+                                      and ic["configuration of"] == instrument["id"]}))
+            }
     print(instruments)
     tpl = html_env.get_template("instruments.html")
     with open(os.path.join(output_folder, "instruments.html"), "w") as outfile:
         outfile.write(tpl.render(objects=metadata,
                                  instruments=instruments))
+
+def render_platforms(metadata, output_folder):
+    platforms = [e.copy() for e in metadata.values() if e["type"] == "platform"]
+    for platform in platforms:
+        platform["_related"] = {
+            "instruments": sorted(list({ic["configuration of"]
+                    for pc in metadata.values()
+                    if pc["type"] == "platform_configuration"
+                    and pc["configuration of"] == platform["id"]
+                    for ic in metadata.values()
+                    if ic["type"] == "instrument_configuration"
+                    and ic["part of"] == pc["id"]}))
+            }
+    print(platforms)
+    tpl = html_env.get_template("platforms.html")
+    with open(os.path.join(output_folder, "platforms.html"), "w") as outfile:
+        outfile.write(tpl.render(objects=metadata,
+                                 platforms=platforms))
 
 def tabulate(metadata, output_folder):
     keys_per_type = defaultdict(set)
@@ -105,6 +130,7 @@ def _main():
 
     tabulate(metadata, args.output_folder)
     render_instruments(metadata, args.output_folder)
+    render_platforms(metadata, args.output_folder)
     render_tex_instruments(metadata, args.output_folder)
     render_tex_platform_configuration(metadata, args.output_folder, "HALO_EUREC4A")
     

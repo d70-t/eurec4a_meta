@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}platforms{% endblock %}
+
+{% block content %}
+<h1>platforms</h1>
+{% for platform in platforms %}
+<div class="detailed_item" id="{{ platform.id }}">
+  <div class="main">
+    <h2><a href="#{{ platform.id }}"
+       {% if platform.color %}
+       style="color: {{ platform.color }};"
+       {% endif %}>{{ platform.long_name or platform.name }}</a></h2>
+    <div class="description">
+      {{ platform.description }}
+    </div>
+    <h3>contacts</h3>
+    <div class="contacts">
+      {% for contact, tags in platform.contacts.items() %}
+        <div class="contact">
+          <div class="name">
+            {% if objects[contact].email %}
+              <a href="mailto:{{ objects[contact].email }}">{{ objects[contact].name }}</a>
+            {% else %}
+              {{ objects[contact].name }}
+            {% endif %}
+          </div>
+          <div class="tags">
+            {% for tag in tags %}
+            <div class="tag">
+              {{ tag }}
+              <div class="tagname">
+                {{ objects[tag].name }}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <h3>further information</h3>
+    <ul>
+      {% for uri in platform.uris %}
+        <li><a href="{{ uri.url }}">{{ uri.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <h3>instruments</h3>
+    <ul>
+      {% for instrument in platform._related.instruments %}
+        <li><a href="instruments.html#{{ instrument }}">{{ objects[instrument].long_name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if platform.pictures %}
+  <div class="left highlight_picture"
+       {% if platform.color %}
+       style="background-color: {{ platform.color }};"
+       {% endif %}
+      >
+      <img src="{{ platform.pictures[0] }}" alt="picture of {{ platform.long_name }}" />
+  </div>
+  {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

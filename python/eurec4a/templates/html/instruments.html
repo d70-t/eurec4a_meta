@@ -39,6 +39,12 @@
       <li><a href="{{ uri.url }}">{{ uri.title }}</a></li>
     {% endfor %}
   </ul>
+  <h3>platforms</h3>
+  <ul>
+    {% for platform in instrument._related.platforms %}
+      <li><a href="platforms.html#{{ platform }}">{{ objects[platform].long_name }}</a></li>
+    {% endfor %}
+  </ul>
 </div>
 {% endfor %}
 {% endblock %}
