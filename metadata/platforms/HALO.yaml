@@ -16,6 +16,8 @@ platforms:
       felix: [pi]
     uris:
       - http://www.halo.dlr.de
+    pictures:
+      - http://www.halo.dlr.de/gallery/06_arrival_in_OP/.index/2009-01-24-C-side-l.jpg
     color: "#008080" #teal
     configurations:
       EUREC4A:
