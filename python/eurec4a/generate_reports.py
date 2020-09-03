@@ -1,4 +1,5 @@
 import os
+import shutil
 from collections import defaultdict
 
 from .meta import load_metadata_from_folder
@@ -89,6 +90,7 @@ def _main():
     import argparse
 
     default_metadata_folder = os.path.join(os.path.dirname(__file__), "..", "..", "metadata")
+    static_html_folder = os.path.join(os.path.dirname(__file__), "static", "html")
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-o", "--output_folder", type=str, default=".")
@@ -96,6 +98,10 @@ def _main():
     args = parser.parse_args()
 
     metadata = load_metadata_from_folder(args.metadata_folder)
+
+    shutil.copytree(static_html_folder,
+                    os.path.join(args.output_folder, "static"),
+                    dirs_exist_ok=True)
 
     tabulate(metadata, args.output_folder)
     render_instruments(metadata, args.output_folder)
