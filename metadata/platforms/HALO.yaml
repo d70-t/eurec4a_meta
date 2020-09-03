@@ -15,7 +15,7 @@ platforms:
       bjorn: [pi]
       felix: [pi]
     uris:
-      - https://www.halo.dlr.de
+      - http://www.halo.dlr.de
     color: "#008080" #teal
     configurations:
       EUREC4A:
