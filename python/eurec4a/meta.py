@@ -1,4 +1,5 @@
 import os
+from collections import defaultdict
 import yaml
 from yaml.loader import SafeLoader, BaseLoader
 from .uri import parse_uri
@@ -170,6 +171,22 @@ def load_metadata_from_folder(folder):
         metadata[entry["id"]] = entry
         locations[entry["id"]] = location
     return metadata
+
+def create_backward_links(metadata):
+    """
+    Computes reverse links for all metadata items.
+    """
+    links = {"configuration of": "configurations",
+             "measured by": "measures",
+             "part of": "contains",
+            }
+    reverse_annotations = defaultdict(lambda: defaultdict(list))
+    for k, v in metadata.items():
+        for forward_link, reverse_link in links.items():
+            if forward_link in v:
+                reverse_annotations[v[forward_link]][reverse_link].append(k)
+
+    return {k: {**v, **reverse_annotations[k]} for k, v in metadata.items()}
 
 def print_metadata_from_folder(folder):
     try:

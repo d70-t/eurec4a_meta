@@ -2,7 +2,7 @@ import os
 import shutil
 from collections import defaultdict
 
-from .meta import load_metadata_from_folder
+from .meta import load_metadata_from_folder, create_backward_links
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 html_env = Environment(
@@ -28,10 +28,8 @@ def render_instruments(metadata, output_folder):
     instruments = [e.copy() for e in metadata.values() if e["type"] == "instrument"]
     for instrument in instruments:
         instrument["_related"] = {
-            "platforms": sorted(list({metadata[ic["part of"]]["configuration of"]
-                                      for ic in metadata.values()
-                                      if ic["type"] == "instrument_configuration"
-                                      and ic["configuration of"] == instrument["id"]}))
+            "platforms": sorted(list({metadata[metadata[ic]["part of"]]["configuration of"]
+                                      for ic in instrument["configurations"]}))
             }
     print(instruments)
     tpl = html_env.get_template("instruments.html")
@@ -43,13 +41,9 @@ def render_platforms(metadata, output_folder):
     platforms = [e.copy() for e in metadata.values() if e["type"] == "platform"]
     for platform in platforms:
         platform["_related"] = {
-            "instruments": sorted(list({ic["configuration of"]
-                    for pc in metadata.values()
-                    if pc["type"] == "platform_configuration"
-                    and pc["configuration of"] == platform["id"]
-                    for ic in metadata.values()
-                    if ic["type"] == "instrument_configuration"
-                    and ic["part of"] == pc["id"]}))
+            "instruments": sorted(list({metadata[ic]["configuration of"]
+                                        for pc in platform["configurations"]
+                                        for ic in metadata[pc]["contains"]}))
             }
     print(platforms)
     tpl = html_env.get_template("platforms.html")
@@ -122,7 +116,7 @@ def _main():
     parser.add_argument("-m", "--metadata_folder", type=str, default=default_metadata_folder)
     args = parser.parse_args()
 
-    metadata = load_metadata_from_folder(args.metadata_folder)
+    metadata = create_backward_links(load_metadata_from_folder(args.metadata_folder))
 
     shutil.copytree(static_html_folder,
                     os.path.join(args.output_folder, "static"),
