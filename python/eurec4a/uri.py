@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 class URI:
+    kind = "unknown"
     def __init__(self, parsed_uri):
         self.o = parsed_uri
 
@@ -10,6 +11,7 @@ class URI:
         return urlunparse(self.o)
 
 class HTTP(URI):
+    kind = "http"
     __soup = None
 
     @property
@@ -29,6 +31,7 @@ class HTTP(URI):
         return urlunparse(self.o)
 
 class DOI(URI):
+    kind = "doi"
     __metadata = None
 
     @property
