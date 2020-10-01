@@ -10,6 +10,10 @@ body {
     border-style: solid;
 }
 
+.instrument:target {
+    background-color: #efe;
+}
+
 .detailed_item {
     margin: 5px;
     padding: 5px;
@@ -103,3 +107,17 @@ h2, h3 {
     visibility: visible;
     opacity: 1;
 } 
+
+.doi_color {
+    background-color: #fcb426;
+}
+
+.object_table {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.object_table :target td {
+    background-color: yellow;
+}

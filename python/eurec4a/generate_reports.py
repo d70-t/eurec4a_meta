@@ -24,6 +24,27 @@ tex_env = Environment(
     loader=PackageLoader('eurec4a', os.path.join('templates', 'tex')),
 )
 
+def configure_platform(metadata, platform_configuration_id):
+    platform_configuration = metadata[platform_configuration_id]
+    platform_id = platform_configuration["configuration of"]
+    instrument_configurations = [e for e in metadata.values()
+            if e["type"] == "instrument_configuration"
+            and e["part of"] == platform_configuration_id]
+
+    platform = metadata[platform_id]
+
+    configured_instruments = [
+        {**metadata[ic["configuration of"]],
+         "variables": {k: e for k, e in metadata.items()
+                       if e["type"] == "variable"
+                       and e["measured by"] == ic["id"]},
+         "configuration": ic}
+        for ic in instrument_configurations
+    ]
+    return {"platform_configuration": platform_configuration,
+            "platform": platform,
+            "configured_instruments": configured_instruments}
+
 def render_instruments(metadata, output_folder):
     instruments = [e.copy() for e in metadata.values() if e["type"] == "instrument"]
     for instrument in instruments:
@@ -36,6 +57,12 @@ def render_instruments(metadata, output_folder):
     with open(os.path.join(output_folder, "instruments.html"), "w") as outfile:
         outfile.write(tpl.render(objects=metadata,
                                  instruments=instruments))
+
+def render_instruments_on_platform_and_campaign(metadata, output_folder, platform_configuration_id):
+    config = configure_platform(metadata, platform_configuration_id)
+    tpl = html_env.get_template("instruments_on_platform_and_campaign.html")
+    with open(os.path.join(output_folder, "instruments_{}.html".format(platform_configuration_id)), "w") as outfile:
+        outfile.write(tpl.render(objects=metadata, **config))
 
 def render_platforms(metadata, output_folder):
     platforms = [e.copy() for e in metadata.values() if e["type"] == "platform"]
@@ -82,28 +109,10 @@ def render_tex_instruments(metadata, output_folder):
                                  instruments=instruments))
 
 def render_tex_platform_configuration(metadata, output_folder, platform_configuration_id):
-    platform_configuration = metadata[platform_configuration_id]
-    platform_id = platform_configuration["configuration of"]
-    instrument_configurations = [e for e in metadata.values()
-            if e["type"] == "instrument_configuration"
-            and e["part of"] == platform_configuration_id]
-
-    platform = metadata[platform_id]
-
-    configured_instruments = [
-        {**metadata[ic["configuration of"]],
-         "variables": {k: e for k, e in metadata.items()
-                       if e["type"] == "variable"
-                       and e["measured by"] == ic["id"]}}
-        for ic in instrument_configurations
-    ]
-
+    config = configure_platform(metadata, platform_configuration_id)
     tpl = tex_env.get_template("platform_configuration.tex")
     with open(os.path.join(output_folder, "platform_configuration_{}.tex".format(platform_configuration_id)), "w") as outfile:
-        outfile.write(tpl.render(objects=metadata,
-                                 platform_configuration=platform_configuration,
-                                 platform=platform,
-                                 configured_instruments=configured_instruments))
+        outfile.write(tpl.render(objects=metadata, **config))
 
 def _main():
     import argparse
@@ -124,6 +133,7 @@ def _main():
 
     tabulate(metadata, args.output_folder)
     render_instruments(metadata, args.output_folder)
+    render_instruments_on_platform_and_campaign(metadata, args.output_folder, "HALO_EUREC4A")
     render_platforms(metadata, args.output_folder)
     render_tex_instruments(metadata, args.output_folder)
     render_tex_platform_configuration(metadata, args.output_folder, "HALO_EUREC4A")

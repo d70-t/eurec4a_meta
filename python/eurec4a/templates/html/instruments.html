@@ -4,7 +4,7 @@
 {% block content %}
 <h1>instruments</h1>
 {% for instrument in instruments%}
-<div class="instrument">
+<div class="instrument" id="{{ instrument.id }}">
   <h2>{{ instrument.long_name or instrument.name }}</h2>
   <div class="description">
     {{ instrument.description }}
