@@ -1,6 +1,17 @@
 from urllib.parse import urlparse, urlunparse
 import requests
 from bs4 import BeautifulSoup
+import crossref_commons.retrieval
+import hashlib
+import json
+
+import os
+if "XDG_CACHE_HOME" in os.environ:
+    CACHE_HOME = os.environ["XDG_CACHE_HOME"]
+else:
+    CACHE_HOME = os.path.join(os.environ["HOME"], ".cache")
+
+CACHEDIR = os.path.join(CACHE_HOME, "eurec4a_meta", "uri_meta")
 
 class URI:
     kind = "unknown"
@@ -40,16 +51,22 @@ class DOI(URI):
 
     @property
     def _metadata(self):
-        if self.__metadata is None:
-            res = requests.get(self.url,
-                               headers={"Accept": "application/citeproc+json"})
-            res.raise_for_status()
-            self.__metadata = res.json()
-        return self.__metadata
+        meta_hash = hashlib.sha256(("doi_meta+" + self._doi).encode("utf-8")).hexdigest()
+        print(meta_hash)
+        cache_file = os.path.join(CACHEDIR, meta_hash + ".json")
+        if os.path.exists(cache_file):
+            with open(cache_file) as cf:
+                return json.load(cf)
+        else:
+            os.makedirs(CACHEDIR, exist_ok=True)
+            res = crossref_commons.retrieval.get_publication_as_json(self._doi)
+            with open(cache_file, "w") as cf:
+                json.dump(res, cf)
+            return res
 
     @property
     def title(self):
-        return self._metadata["title"]
+        return self._metadata["title"][0]
 
     @property
     def url(self):
