@@ -1,0 +1,42 @@
+people:
+  martin:
+    name: Martin Zöger
+    email: martin.zoeger@dlr.de
+  andreas:
+    name: Andreas Giez
+    email: andreas.giez@dlr.de
+  vladyslav:
+    name: Vladyslav Nenakhov
+    email: vladyslav.nenakhov@dlr.de
+  christian:
+      name: Christian Mallaun
+      email: christian.mallaun@dlr.de
+
+institutions:
+  DLR:
+    name: Deutsches Zentrum für Luft- und Raumfahrt
+    city: Oberpfaffenhofen
+    country: Germany
+
+instruments:
+  BACARDI:
+    name: BACARDI
+    long_name:
+    kind: [Two sets of broadband pyranometer and pyrgeometer.]
+    description: Upward and downward measurements of broadband solar and terrestrial irradiance by pyranometers and pyrgeometers in the wavelength range from 0.2 to 3.6 micrometer and from 4.5 to 42 micrometer,respectively.
+    uris: []
+    contacts:
+      martin: [sc, du, tl, as, dp]
+      DLR: [home]
+    configurations:
+      EUREC4A:
+        part of: HALO_EUREC4A
+        variables:
+          broadband_upward_solar_irradiance:
+            name: broadband upward solar irradiance
+          broadband_downward_solar_irradiance:
+            name: broadband downward solar irradiance
+          broadband_upward_terrestrial_irradiance:
+            name: broadband upward terrestrial irradiance
+          broadband_downward_terrestrial_irradiance:
+            name: broadband downward terrestrial irradiance
