@@ -36,7 +36,7 @@
   <h3>further information</h3>
   <ul>
     {% for uri in instrument.uris %}
-      <li><a href="{{ uri.url }}">{{ uri.title }}</a></li>
+      <li><a href="{{ uri.href }}">{{ uri.title }}</a></li>
     {% endfor %}
   </ul>
   <h3>platforms</h3>

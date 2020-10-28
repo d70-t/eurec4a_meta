@@ -21,6 +21,13 @@ class URI:
     def __repr__(self):
         return urlunparse(self.o)
 
+    def to_link_object(self):
+        return {
+            "href": self.url,
+            "title": self.title,
+            "kind": self.kind,
+        }
+
 class HTTP(URI):
     kind = "http"
     __soup = None
@@ -71,6 +78,9 @@ class DOI(URI):
     @property
     def url(self):
         return "https://doi.org/{}".format(self._doi)
+
+    def to_link_object(self):
+        return {**super(DOI, self).to_link_object(), "doi": self._doi}
 
 
 HANDLED_URIS = {

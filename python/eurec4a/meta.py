@@ -75,7 +75,7 @@ def simple_loader(object_type):
         data["id"] = id.collapse()
         data["type"] = object_type
         if "uris" in data:
-            data["uris"] = [parse_uri(uri) for uri in data["uris"]]
+            data["uris"] = [parse_uri(uri).to_link_object() for uri in data["uris"]]
 
         for k in FLATTEN_KEYS:
             if k in data:

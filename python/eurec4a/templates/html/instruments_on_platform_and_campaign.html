@@ -56,7 +56,7 @@
   <h3>further information</h3>
   <ul>
     {% for uri in instrument.uris %}
-    <li>{% if uri.kind == "doi" %}<div class="tag doi_color">doi</div>{% endif %}<a href="{{ uri.url }}">{{ uri.title }}</a></li>
+    <li>{% if uri.kind == "doi" %}<div class="tag doi_color">doi</div>{% endif %}<a href="{{ uri.href }}">{{ uri.title }}</a></li>
     {% endfor %}
   </ul>
   <h3>data access</h3>
