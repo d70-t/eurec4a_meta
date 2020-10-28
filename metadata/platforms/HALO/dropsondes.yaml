@@ -1,0 +1,33 @@
+people:
+  geet:
+    name: Geet George
+    email: geet.george@mpimet.mpg.de
+
+institutions:
+  mpim:
+    name: MPI Meteorologie
+    city: Hamburg 
+    country: Germany
+
+instruments:
+  halo_dropspndes:
+    name: Dropsondes
+    long_name: HALO Dropsonde system
+    kind: [dropsondes]
+    description: 
+    uris:
+      - https://github.com/Geet-George/JOANNE
+    contacts:
+      geet: [sc, du, tl, as, dp]
+      bjorn: [pi]
+      mpim: [home]
+    configurations:
+      EUREC4A:
+        part of: HALO_EUREC4A
+        variables:
+          temperature:
+            name: temperature 
+          humidity:
+            name: humidity
+          uv_wind:
+            name: horizontal wind

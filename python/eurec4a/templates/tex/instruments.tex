@@ -1,0 +1,11 @@
+
+\BLOCK{ for instrument in instruments }
+  \section{\VAR{ instrument.long_name or instrument.name }}
+  \VAR{ instrument.description }
+  \subsection{contacts}
+  \begin{itemize}
+\BLOCK{ for contact, tags in instrument.contacts.items() }
+    \item{\VAR{ objects[contact].name }}
+\BLOCK{ endfor }
+  \end{itemize}
+\BLOCK{ endfor }

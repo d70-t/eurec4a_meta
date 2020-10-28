@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}object table{% endblock %}
+
+{% block content %}
+<h1>object table</h1>
+{% for type, table in tabulated.items() %}
+<h2>{{ type }}</h2>
+<table class="object_table">
+<tr>
+  {% for name in table.column_names %}
+  <th>{{ name }}</th>
+  {% endfor %}
+</tr>
+{% for row in table.rows %}
+<tr id="{{ row[0] }}">
+  {% for cell in row %}
+  <td>
+      {{ cell or "" }}
+  </td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+{% endfor %}
+{% endblock %}

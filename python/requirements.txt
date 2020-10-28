@@ -1,0 +1,5 @@
+jinja2
+pyyaml
+requests
+beautifulsoup4
+crossref_commons

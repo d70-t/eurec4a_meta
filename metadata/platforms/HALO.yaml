@@ -1,0 +1,27 @@
+institutions:
+  dlr_fx:
+    name: DLR Flugbetrieb
+    country: Germany
+
+platforms:
+  HALO:
+    long_name: HALO
+    aliases:
+      - DLR-HALO
+      - High Altitude Long Range
+    kinds: [research aircraft, aircraft]
+    contacts:
+      dlr_fx: [home]
+      bjorn: [pi]
+      felix: [pi]
+    uris:
+      - http://www.halo.dlr.de
+    pictures:
+      - http://www.halo.dlr.de/gallery/06_arrival_in_OP/.index/2009-01-24-C-side-l.jpg
+    color: "#008080" #teal
+    configurations:
+      EUREC4A:
+        name: EUREC4A
+        timeframe:
+          from: 2020-01-18
+          until: 2020-02-18

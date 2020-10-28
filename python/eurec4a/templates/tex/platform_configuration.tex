@@ -1,0 +1,20 @@
+
+\section{\VAR{platform.long_name}}
+This sections describes how \VAR{platform.long_name} was configured for the \VAR{platform_configuration.name} setup from \VAR{platform_configuration.timeframe.from} until \VAR{platform_configuration.timeframe.until}.
+
+\BLOCK{ for instrument in configured_instruments }
+  \subsection{\VAR{ instrument.long_name or instrument.name }}
+  \VAR{ instrument.description }
+  \subsubsection{variables}
+  \begin{itemize}
+\BLOCK{ for var in instrument.variables.values() }
+    \item{\VAR{ var.name }}
+\BLOCK{ endfor }
+  \end{itemize}
+  \subsubsection{contacts}
+  \begin{itemize}
+\BLOCK{ for contact, tags in instrument.contacts.items() }
+    \item{\VAR{ objects[contact].name }}
+\BLOCK{ endfor }
+  \end{itemize}
+\BLOCK{ endfor }
