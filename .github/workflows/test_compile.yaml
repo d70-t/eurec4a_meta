@@ -1,0 +1,18 @@
+on: [push, pull_request]
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Python
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.8
+            - name: Install dependencies
+              run: pip install -r python/requirements.txt
+            - name: Compile metadata
+              run: |
+                  cd python
+                  export PYTHONPATH=.
+                  python -m eurec4a.compile ../metadata > meta.yaml
