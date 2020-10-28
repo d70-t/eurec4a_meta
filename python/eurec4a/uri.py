@@ -59,7 +59,6 @@ class DOI(URI):
     @property
     def _metadata(self):
         meta_hash = hashlib.sha256(("doi_meta+" + self._doi).encode("utf-8")).hexdigest()
-        print(meta_hash)
         cache_file = os.path.join(CACHEDIR, meta_hash + ".json")
         if os.path.exists(cache_file):
             with open(cache_file) as cf:

@@ -52,7 +52,6 @@ def render_instruments(metadata, output_folder):
             "platforms": sorted(list({metadata[metadata[ic]["part of"]]["configuration of"]
                                       for ic in instrument["configurations"]}))
             }
-    print(instruments)
     tpl = html_env.get_template("instruments.html")
     with open(os.path.join(output_folder, "instruments.html"), "w") as outfile:
         outfile.write(tpl.render(objects=metadata,
@@ -72,7 +71,6 @@ def render_platforms(metadata, output_folder):
                                         for pc in platform["configurations"]
                                         for ic in metadata[pc]["contains"]}))
             }
-    print(platforms)
     tpl = html_env.get_template("platforms.html")
     with open(os.path.join(output_folder, "platforms.html"), "w") as outfile:
         outfile.write(tpl.render(objects=metadata,
@@ -102,7 +100,6 @@ def tabulate(metadata, output_folder):
 
 def render_tex_instruments(metadata, output_folder):
     instruments = [e for e in metadata.values() if e["type"] == "instrument"]
-    print(instruments)
     tpl = tex_env.get_template("instruments.tex")
     with open(os.path.join(output_folder, "instruments.tex"), "w") as outfile:
         outfile.write(tpl.render(objects=metadata,
