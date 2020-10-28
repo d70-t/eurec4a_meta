@@ -1,5 +1,11 @@
 image: python:latest
 
+variables:
+  XDG_CACHE_HOME: "$CI_PROJECT_DIR/.cache"
+
+cache:
+  paths:
+    - .cache
 pages:
   variables:
     PYTHONPATH: "."
