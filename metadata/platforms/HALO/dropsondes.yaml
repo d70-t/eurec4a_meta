@@ -20,14 +20,18 @@ instruments:
     contacts:
       geet: [sc, du, tl, as, dp]
       bjorn: [pi]
+      felix: [pi]
+      sandrine: [pi]
       mpim: [home]
     configurations:
       EUREC4A:
-        part of: HALO_EUREC4A
+        part of: [HALO_EUREC4A,EUREC4A_JOANNE]
         variables:
           temperature:
             name: temperature 
           humidity:
             name: humidity
+          pressure:
+            name: pressure
           uv_wind:
             name: horizontal wind
