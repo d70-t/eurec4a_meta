@@ -25,7 +25,7 @@ instruments:
       mpim: [home]
     configurations:
       EUREC4A:
-        part of: [HALO_EUREC4A,EUREC4A_JOANNE]
+        part of: HALO_EUREC4A
         variables:
           temperature:
             name: temperature 
