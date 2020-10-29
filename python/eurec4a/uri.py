@@ -19,12 +19,15 @@ class URI:
     kind = "unknown"
     def __init__(self, parsed_uri):
         self.o = parsed_uri
+        self.extra_attrs = {}
 
     def __repr__(self):
         return urlunparse(self.o)
 
     @property
     def title(self):
+        if "title" in self.extra_attrs:
+            return self.extra_attrs["title"]
         try:
             return self._title
         except AttributeError:
@@ -32,6 +35,7 @@ class URI:
 
     def to_link_object(self):
         return {
+            **self.extra_attrs,
             "href": self.url,
             "title": self.title,
             "kind": self.kind,
@@ -131,6 +135,14 @@ HANDLED_URIS = {
 }
 
 def parse_uri(uri):
+    if isinstance(uri, dict):
+        o = _parse_uri(uri["href"])
+        o.extra_attrs.update({k: v for k, v in uri.items() if k != "href"})
+    else:
+        o = _parse_uri(uri)
+    return o
+
+def _parse_uri(uri):
     o = urlparse(uri)
     if o.scheme not in HANDLED_URIS:
         raise ValueError("unknown URI scheme {} in {}".format(o.scheme, uri))
