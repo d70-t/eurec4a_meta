@@ -13,7 +13,7 @@ pages:
     - mkdir public
     - cd python
     - pip install -r requirements.txt
-    - python -m eurec4a.compile ../metadata > ../public/meta.yaml
+    - python -m eurec4a.compile ../metadata -v > ../public/meta.yaml
     - python -m eurec4a.compile ../metadata -j > ../public/meta.json
     - python -m eurec4a.generate_reports -m ../metadata -o ../public/
   artifacts:

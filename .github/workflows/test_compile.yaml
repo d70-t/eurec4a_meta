@@ -27,4 +27,4 @@ jobs:
                   export XDX_CACHE_HOME=$(pwd)/.cache
                   cd python
                   export PYTHONPATH=.
-                  python -m eurec4a.compile ../metadata > meta.yaml
+                  python -m eurec4a.compile ../metadata -v > meta.yaml

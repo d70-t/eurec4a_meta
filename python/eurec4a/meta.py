@@ -208,3 +208,21 @@ def print_instruments_from_folder(folder):
             continue
         print(data["name"])
 
+
+def instrument_checker(name, data, metadata):
+    for cname, croles in data.get("contacts", {}).items():
+        if cname not in metadata:
+            yield "ERROR", f"instrument \"{name}\" uses \"{cname}\" as contact, but \"{cname}\" is not defined"
+        for role in croles:
+            if role not in metadata:
+                yield "ERROR", f"contact \"{cname}\" of instrument \"{name}\" uses \"{role}\" as role, but \"{role}\" is not defined"
+
+ITEM_CHECKERS = {
+    "instrument": instrument_checker,
+}
+
+def check_metadata_consistency(metadata):
+    for k, v in metadata.items():
+        checker = ITEM_CHECKERS.get(v["type"], None)
+        if checker:
+            yield from checker(k, v, metadata)
