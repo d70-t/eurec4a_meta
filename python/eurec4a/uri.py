@@ -1,9 +1,11 @@
 from urllib.parse import urlparse, urlunparse
 import requests
 from bs4 import BeautifulSoup
+from PIL import Image
 import crossref_commons.retrieval
 import hashlib
 import json
+import io
 
 import os
 if "XDG_CACHE_HOME" in os.environ:
@@ -21,6 +23,13 @@ class URI:
     def __repr__(self):
         return urlunparse(self.o)
 
+    @property
+    def title(self):
+        try:
+            return self._title
+        except AttributeError:
+            return ""
+
     def to_link_object(self):
         return {
             "href": self.url,
@@ -30,19 +39,52 @@ class URI:
 
 class HTTP(URI):
     kind = "http"
-    __soup = None
+    __content = None
+
+    @property
+    def _content(self):
+        if self.__content is None:
+            res = requests.get(self.url)
+            res.raise_for_status()
+            self.__content = res.content
+        return self.__content
 
     @property
     def _soup(self):
-        if self.__soup is None:
-            res = requests.get(self.url)
-            res.raise_for_status()
-            self.__soup = BeautifulSoup(res.text, "html.parser")
-        return self.__soup
+        try:
+            return BeautifulSoup(self._content.decode("utf-8"), "html.parser")
+        except:
+            return None
 
     @property
-    def title(self):
+    def _file_meta(self):
+        return {
+            "filesize": len(self._content),
+        }
+
+    @property
+    def _image_meta(self):
+        try:
+            bio = io.BytesIO(self._content)
+            img = Image.open(bio)
+        except Exception as e:
+            return {}
+        else:
+            return {
+                "type": Image.MIME[img.format],
+                "imagesize": list(img.size),
+            }
+
+    @property
+    def _title(self):
         return self._soup.head.title.get_text()
+
+    def to_link_object(self):
+        return {
+            **super(HTTP, self).to_link_object(),
+            **self._file_meta,
+            **self._image_meta,
+        }
 
     @property
     def url(self):
@@ -71,7 +113,7 @@ class DOI(URI):
             return res
 
     @property
-    def title(self):
+    def _title(self):
         return self._metadata["title"][0]
 
     @property
