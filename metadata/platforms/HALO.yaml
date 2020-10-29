@@ -5,7 +5,8 @@ institutions:
 
 platforms:
   HALO:
-    long_name: HALO
+    name: HALO
+    long_name: High Altitude Long Range Aircraft
     aliases:
       - DLR-HALO
       - High Altitude Long Range
