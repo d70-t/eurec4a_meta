@@ -30,7 +30,8 @@ instruments:
     description: Modular system to measure spectral solar radiation (irradiance, radiance) from airborne platforms. Measurements cover a spectral range between 300 and 2200 nm. Includes an active attitude correction of the optical inlets to compensate for aircraft movements.
     uris:
       - https://home.uni-leipzig.de/strahlen/web/general/en_index.php?goto=measurements#SMART
-      - doi:10.1175/1520-0426(2001)018<1856:AASAWA>2.0.CO;2
+      - href: doi:10.1175/1520-0426(2001)018<1856:AASAWA>2.0.CO;2
+        rel: reference
     contacts:
       andre: [sc, du, tl, as, dp]
       LIM: [home]
