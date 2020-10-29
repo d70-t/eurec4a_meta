@@ -68,7 +68,7 @@ def render_platforms(metadata, output_folder):
     for platform in platforms:
         platform["_related"] = {
             "instruments": sorted(list({metadata[ic]["configuration of"]
-                                        for pc in platform["configurations"]
+                                        for pc in platform.get("configurations", [])
                                         for ic in metadata[pc]["contains"]}))
             }
     tpl = html_env.get_template("platforms.html")
