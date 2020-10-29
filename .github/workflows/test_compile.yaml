@@ -1,7 +1,7 @@
 on: [push, pull_request]
 
 jobs:
-    validate:
+    test_compile:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -11,8 +11,20 @@ jobs:
                 python-version: 3.8
             - name: Install dependencies
               run: pip install -r python/requirements.txt
+            - name: compute doi cache key
+              id: get-doi-cache-key
+              run: |
+                  echo "::set-output name=key::$(python python/eurec4a/collect_dois.py -H metadata)"
+              shell: bash
+
+            - name: cache doi data
+              uses: actions/cache@v2
+              with:
+                path: .cache
+                key: ${{ runner.os }}-${{ steps.get-doi-cache-key.outputs.key }}
             - name: Compile metadata
               run: |
+                  export XDX_CACHE_HOME=$(pwd)/.cache
                   cd python
                   export PYTHONPATH=.
                   python -m eurec4a.compile ../metadata > meta.yaml
