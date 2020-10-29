@@ -1,0 +1,9 @@
+platforms:
+  ATR42:
+    name: ATR42
+    long_name: SAFIRE ATR42
+    uris:
+      - https://www.safire.fr/en/content_page/safire-utilisateurs/latr42-2.html
+    pictures:
+      - https://www.safire.fr/images/stories/flexicontent/item_13_field_16/l_2019-10-07_14.48.46.JPG
+    color: "#f7c96b"
