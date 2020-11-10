@@ -20,6 +20,8 @@ instruments:
     contacts:
       geet: [sc, du, tl, as, dp]
       bjorn: [pi]
+      felix: [pi]
+      sandrine: [pi]
       mpim: [home]
     configurations:
       EUREC4A:
@@ -29,5 +31,7 @@ instruments:
             name: temperature 
           humidity:
             name: humidity
+          pressure:
+            name: pressure
           uv_wind:
             name: horizontal wind
