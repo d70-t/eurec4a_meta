@@ -2,6 +2,9 @@ people:
   tobi:
     name: Tobias Kölling
     email: tobias.koelling@physik.uni-muenchen.de
+  vero:
+    name: Veronika Pörtge
+    email: veronika.poertge@physik.uni-muenchen.de
 
 institutions:
   lmu:
@@ -30,6 +33,7 @@ instruments:
       - href: https://www.meteorologie.lmu.de/DokuWiki/doku.php?id=arbeitsgruppen:wolkenspektrometer
         title: MIM specMACS info page
     contacts:
+      vero: [sc, du, pi, as, dp]
       tobi: [sc, du, tl, as, dp]
       lmu_mim: [home]
     configurations:
