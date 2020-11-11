@@ -17,6 +17,9 @@ instruments:
     description: 
     uris:
       - https://github.com/Geet-George/JOANNE
+      - href: https://ipfs.io/ipfs/QmPm69ymL8Se1KRGMRsv2ARVqUBdsqz7yWiR2jeC6XRSSn
+        rel: logo
+        alt: JOANNE logo
     contacts:
       geet: [sc, du, tl, as, dp]
       bjorn: [pi]
