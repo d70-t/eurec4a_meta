@@ -39,6 +39,8 @@ instruments:
     configurations:
       EUREC4A:
         part of: HALO_EUREC4A
+        description: |
+            During EUREC4A, specMACS was equipped with two additional 2D polarization resolving cameras.
         variables:
           spectral_radiance:
             name: spectral radiance
