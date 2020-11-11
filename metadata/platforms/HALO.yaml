@@ -1,7 +1,23 @@
+people:
+  andreas.gietz:
+    name: Andreas Gietz
+
 institutions:
   dlr_fx:
     name: DLR Flugbetrieb
     country: Germany
+
+instruments:
+  BAHAMAS:
+    name: BAHAMAS
+    long_name: BAHAMAS
+    kind: [basic instrumentation]
+    contacts:
+      andreas.gietz: [pi]
+      dlr_fx: [home]
+    configurations:
+      EUREC4A:
+        part of: HALO_EUREC4A
 
 platforms:
   HALO:
