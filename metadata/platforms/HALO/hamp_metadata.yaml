@@ -1,0 +1,81 @@
+people:
+  marek:
+    name: Marek Jacob
+    email: marek.jacob@uni-koeln.de
+  mario:
+    name: Mario Mech
+    email: mario.mech@uni-koeln.de
+  lutz:
+    name: Lutz Hirsch
+    email: lutz.hirsch@mpimet.mpg.de
+  heike:
+    name: Heike Konow
+    email: heike.konow@uni-hamburg.de
+  flo:
+    name: Florian Ewald
+    email: florian.ewald@dlr.de
+  martin.hagen:
+    name: Martin Hagen
+    email: martin.hagen@dlr.de
+   
+institutions:
+  mpi:
+    name: Max-Planck-Institut für Meteorologie
+    city: Hamburg
+    country: Germany
+  
+  uhh:
+    name: Universität Hamburg
+    city: Hamburg
+    country: Germany
+
+  uhhmi:
+    name: Meteorologisches Institut
+    part of: uhh
+ 
+  dlr:
+    name: Deutsches Zentrum für Luft- und Raumfahrt
+    city: Oberpfaffenhofen
+    country: Germany
+
+  uzk:
+    name: Universität zu Köln
+    city: Köln
+    country: Germany
+
+  uzk_igmk:
+    name: Institut für Geophysik und Meteorologie
+    part of: uzk
+
+instruments:
+  HAMP:
+    name: HAMP
+    long_name: HALO Microwave Package
+    kind: [microwave radiometer, cloud radar]
+    description: HAMP consists of a suite of passive microwave radiometers with 26 frequencies ranging between 22.24 and 183.31GHz, and an active cloud radar measuring at 35.5 GHz. The radiometeres are installed nadir-pointing in a bellypod under the fuselage with opening angles between 2.7 (G-band) and 5.0° (K-band). The almost nadir-pointed radar antenna is located in a bellypod and connected to the electronics in the cabin. Pre-flight calibration was performed before each flight for the radiometers, and before the transfer flight to Barbados for the radar.
+    uris:
+      - http://gop.meteo.uni-koeln.de/ag_crewell/doku.php?id=projects:halo:halo
+      - doi:10.5194/amt-7-4539-2014
+      - doi:10.5194/amt-12-1815-2019
+    contacts:
+      marek: [sc, dp, tl, du]
+      flo: [sc, dp, tl, du]
+      heike: [sc, dp, du, pi]
+      martin.hagen: [tl]
+      mario: [tl]
+      friedhelm: [tl]
+      felix: [pi]
+      bjorn: [pi]
+      uhhmi: [home]
+    configurations:
+      EUREC4A:
+        part of: HALO_EUREC4A
+        variables:
+          brightness_temperature:
+            name: brightness temperature
+          radar_reflectivity:
+            name: radar reflectivity factor
+          radar_doppler:
+            name: mean Doppler velocity
+          ldr:
+            name: linear depolarisation ratio
