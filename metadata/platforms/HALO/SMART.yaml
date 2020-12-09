@@ -1,0 +1,44 @@
+instruments:
+  SMART:
+    name: SMART
+    long_name: Spectral Modular Airborne Radiation measurement sysTem
+    kind: [solar spectrometer]
+    description: The Spectral Modular Airborne Radiation measurement sysTem (SMART) measures downward irradiances in the solar spectral range between 300 nm and 2200 nm. 
+    
+    data_description: |
+        The Spectral Modular Airborne Radiation measurement sysTem (SMART) measures spectral radiances and irradiances 
+        from zenith and nadir-oriented sensors \citep{Wendisch_2016, Wendisch_2001a}. During EUREC4A, SMART was limited to 
+        measure the spectral, downward irradiance $F^{\downarrow}_\lambda$.
+
+        The spectrometer system of SMART covers the visible and near infrared (300 nm to 2200 nm) wavelength range with a 
+        spectral resolution of 2 to 3 nm for wavelengths shorter than 1000 nm and a spectral resolution of 10 to 15 nm for 
+        longer wavelengths \citep{Krisna_2018, Wolf_2017}. SMART on HALO utilizes a stabilization platform, which ensures 
+        the horizontal alignment of the upper irradiance inlet independently of the aircraft attitude \citep{Wendisch_2001a, Wendisch_2004}. 
+        The stabilization is able to correct for roll and pitch angles of up to \mbox{$\pm 6^{\circ}$}. 
+
+        Uncertainties of measured downward irradiance result from the cosine response of the optical inlet and the 
+        radiometric calibration of the entire system. The relative deviation from an ideal cosine response is in the 
+        range of $\pm 3\,\%$ for most Sun geometries \citep{Wendisch_2001a, Wendisch_2002a, Ehrlich_2009a}. However, 
+        for solar zenith angles $\theta_\mathrm{0}$ close to $0^\circ$ (high sun) or $90^\circ$ (sun at the horizon) 
+        the deviations from the cosine response increase.
+
+        The radiometric calibration of SMART is performed against a NIST traceable calibration standard. During field-operation, 
+        the stability of the radiometric calibration is verified by regular transfer calibrations before each flight. The total 
+        measurement uncertainties of $F^{\downarrow }_{\lambda}$ are composed of individual errors by the spectral calibration, 
+        the spectrometer noise and dark current, the primary radiometric calibration, and the transfer calibration. For the 
+        observation conditions during EUREC4A, the total measurement uncertainty of $F_{\lambda}^{\uparrow \downarrow}$ is 
+        about $5.4\, \%$ for the visible and and $8.4\, \%$ for near-infrared wavelength range.
+    uris:
+      - doi:10.1175/BAMS-D-14-00255.1
+      - doi:10.1175/1520-0426(2001)018<1856:AASAWA>2.0.CO;2
+    contacts:
+      andre: [sc, du, as]
+      kevin: [sc, tl, as, dp]
+      LIM: [home]
+    configurations:
+      EUREC4A:
+        part of: HALO_EUREC4A
+        variables:
+          spectral_irradiance:
+            name: solar spectral downward irradiance
+

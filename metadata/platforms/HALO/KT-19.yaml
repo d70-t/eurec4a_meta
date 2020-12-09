@@ -1,0 +1,28 @@
+instruments:
+    KT-19:
+      name: VELOX - KT19
+      long_name: Video aErborne Longwave Observations within siX channels - KT19.85 II
+      kind: [infrared thermometer]
+      description: |
+          Thermal infrared radiometer measuring the brightness temperature of nadir radiance between 9.6 and 11.5 micrometer. 
+          The field-of-view of 2.3° is located in the center of the VELOX images.
+      
+      data_description: |
+          The Kelvin infrared radiation Thermometer (KT-19, version KT-19.85II) was operated in a nadir- looking configuration 
+          within the temperature and pressure stabilized housing of VELOX. It measures brightness temperatures for the wavelength 
+          range of 9.6 to 11.5 μm and covers a temperature range between -50 °C and 50 °C. With a sampling frequency of 20 Hz and 
+          a FOV of 2.3°, the KT-19 resolves cloud top or surface temperature heterogeneities with an along-track spatial resolution 
+          of 400 m (at 10 km flight altitude). The uncertainty is estimated with calibration by the manufacturer and depends on the 
+          temperature difference between the instrument housing and the observed scene. For typical conditions during EUREC4A, with 
+          cloud top temperatures of 10 °C and a 10 °C temperature in the temperature stabilized housing, the total uncertainty is about 0.5 K.
+          
+      uris: []
+      contacts:
+        michael: [sc, du, tl, as, dp]
+        LIM: [home]
+      configurations:
+        EUREC4A:
+          part of: HALO_EUREC4A
+          variables:
+            brightness_temperature:
+              name: brightness temperature of nadir radiance

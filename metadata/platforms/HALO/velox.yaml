@@ -1,0 +1,44 @@
+instruments:
+    VELOX:
+      name: VELOX
+      long_name: Video airbornE Longwave Observations within siX channels
+      kind: [thermal infrared spectral imager]
+      description: VELOX is a thermal infrared spectral imager (VELOX327k veL, 640 pixel by 512 pixels) with a synchronized filter wheel (at 100 Hz) covering six spectral channels in the thermal infrared wavelength range from 7.7 to 12.0 micrometer. The instrument measures the brightness temperature of upward radiance in a field-of-view of 35.49° by 28.71°. 
+
+      data_description: |
+          The VELOX system is comprising the VELOX327k veL, which is a commercially available thermal imager, manufactured by IRCAM, Erlangen, Germany. 
+          It covers the thermal infrared wavelength range from 7.7 to 12.0 µm. It is mounted in a temperature and pressure stabilized housing at the lower 
+          fuselage of HALO in section D of the belly pod, measuring upward radiance, which is converted internally into brightness temperature.
+          
+          The two-dimensional (2D) cadmium-mercury-telluride (CMT) detector has a size of 9.6 mm x 7.86 mm with a resolution of 640 x 512 pixels and 
+          a 14-bit analog-digital-converter, counting the photons based on the snapshot method (integrate-then-read). Based on the sensor size and the 
+          applied lens with a focal length of 15 mm, the field of view (FOV) of the imager is 35.5$^{\circ}$ by 28.7$^{\circ}$. This corresponds to an image size 
+          of 6.4 km by 5.1 km at a distance of 10 km. The spatial resolution is about 10 m by 10 m pixel size for a target at the same distance of 10 km.
+          
+          The detector is actively temperature controlled and cooled down to 65 K by a Stirling cooler. 
+          The active cooling reduces the Noise Equivalent Differential Temperature (NEDT) to 0.04 K and allows for observations 
+          of targets with a body temperature between 233.15 K (-40$^{\circ}$C) and 373.15 K (100$^{\circ}$C).
+          
+          VELOX provides measurements in different spectral bands by the use of a synchronously rotating filter wheel. 
+          This filter wheel provides six slots for spectral filters and is mounted between the lens and the detector and rotates with a frequency of 100 Hz. 
+          For a flight speed of 200 ms$^{-1}$ (over ground), the spatial shift between two subsequent images is only 2 m after one filter-wheel spin.
+          
+          During EUREC4A, four of the six slots are equipped with band-pass (8.5, 10.6, 11 µm centre wavelength) and long-pass (> 11.5 µm) filters, 
+          while the broadband range (7.7 to 12.0 µm) is kept for the remaining two slots.
+          
+          The absolute calibration is achieved by a combination of the manufacturer’s calibration with cross calibrations 
+          and non-uniform corrections (NUC) performed with a black body prior to the measurements. 
+       
+      
+      uris: []
+      contacts:
+        michael: [sc, du, tl, as, dp]
+        LIM: [home]
+      configurations:
+        EUREC4A:
+          part of: HALO_EUREC4A
+          variables:
+            brightness_temperature:
+              name: brightness temperature of upward radiances
+
+              

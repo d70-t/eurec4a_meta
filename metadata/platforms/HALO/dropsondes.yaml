@@ -32,6 +32,7 @@ instruments:
         variables:
           temperature:
             name: temperature 
+            standard_name: air_temperature
           humidity:
             name: humidity
           pressure:

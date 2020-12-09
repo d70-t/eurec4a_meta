@@ -11,6 +11,9 @@ people:
   christian:
       name: Christian Mallaun
       email: christian.mallaun@dlr.de
+  anna:
+    name: Anna Luebke
+    email: anna.luebke@uni-leipzig.de
 
 institutions:
   DLR:
@@ -22,21 +25,23 @@ instruments:
   BACARDI:
     name: BACARDI
     long_name:
-    kind: [Two sets of broadband pyranometer and pyrgeometer.]
-    description: Upward and downward measurements of broadband solar and terrestrial irradiance by pyranometers and pyrgeometers in the wavelength range from 0.2 to 3.6 micrometer and from 4.5 to 42 micrometer,respectively.
+    kind: [Broadband Radiometer]
+    description: A set of broadband radiometer measuring upward and downward irradiance in the solar (0.2 - 3.6 micrometer) and terrestrial (4.5 - 42 micrometer) spectral range.
     uris: []
     contacts:
-      martin: [sc, du, tl, as, dp]
-      DLR: [home]
+      andre: [sc, du, as, dp]
+      martin: [sc, tl, as]
+      LIM: [home]
     configurations:
       EUREC4A:
         part of: HALO_EUREC4A
         variables:
-          broadband_upward_solar_irradiance:
-            name: broadband upward solar irradiance
-          broadband_downward_solar_irradiance:
-            name: broadband downward solar irradiance
-          broadband_upward_terrestrial_irradiance:
-            name: broadband upward terrestrial irradiance
-          broadband_downward_terrestrial_irradiance:
-            name: broadband downward terrestrial irradiance
+          F_down_solar:
+            name: Broadband downward solar irradiance (0.2-3.6 um)
+          F_up_solar:
+            name: Broadband upward solar irradiance (0.2-3.6 um)
+          F_down_terrestrial:
+            name: Broadband downward terrestrial irradiance (4.5-42 um)
+          F_up_terrestrial:
+            name: Broadband upward terrestrial irradiance (4.5-42 um)
+

@@ -1,0 +1,23 @@
+people:
+  andre:
+    name: André Ehrlich
+    email: a.ehrlich@uni-leipzig.de
+  michael:
+    name: Michael Schäfer
+    email: michael.schaefer@uni-leipzig.de
+  manfred:
+    name: Manfred Wendisch
+    email: m.wendisch@uni-leipzig.de
+  kevin:
+    name: Kevin Wolf
+    email: kevin.wolf@uni-leipzig.de
+
+institutions:
+  UL:
+    name: Leipzig University
+    city: Leipzig
+    country: Germany
+
+  LIM:
+    name: Leipzig Institute for Meteorology
+    part of: UL
