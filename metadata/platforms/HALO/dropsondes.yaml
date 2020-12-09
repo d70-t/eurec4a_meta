@@ -10,7 +10,7 @@ institutions:
     country: Germany
 
 instruments:
-  halo_dropspndes:
+  halo_dropsondes:
     name: Dropsondes
     long_name: HALO Dropsonde system
     kind: [dropsondes]
