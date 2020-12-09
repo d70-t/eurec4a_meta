@@ -3,7 +3,10 @@ import yaml
 import json
 from .meta import load_metadata_from_folder, create_backward_links, check_metadata_consistency
 
+import logging
+
 def _main():
+    logging.basicConfig()
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("folder")

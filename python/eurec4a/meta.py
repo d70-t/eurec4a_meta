@@ -4,6 +4,9 @@ import yaml
 from yaml.loader import SafeLoader, BaseLoader
 from .uri import parse_uri
 
+import logging
+logger = logging.getLogger(__file__)
+
 class Annotated:
     def __init__(self, child, start, end):
         self.child = child
@@ -147,7 +150,11 @@ def get_loader(loader_type, location):
 
 def load_metadata_file(filename):
     with open(filename) as f:
-        metadata = yaml.load(f, Loader=AnnotatingLoader)
+        try:
+            metadata = yaml.load(f, Loader=AnnotatingLoader)
+        except:
+            logger.error("could not load file %s", filename)
+            raise
     for loader_type, objects in metadata.child.items():
         location = FileLocation(filename, loader_type.start.line, loader_type.start.column)
         loader = get_loader(loader_type.collapse(), location)
