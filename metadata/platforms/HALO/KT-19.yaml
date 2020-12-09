@@ -1,7 +1,7 @@
 instruments:
     KT-19:
       name: VELOX - KT19
-      long_name: Video aErborne Longwave Observations within siX channels - KT19.85 II
+      long_name: Video airbornE Longwave Observations within siX channels - KT19.85 II
       kind: [infrared thermometer]
       description: |
           Thermal infrared radiometer measuring the brightness temperature of nadir radiance between 9.6 and 11.5 micrometer. 
